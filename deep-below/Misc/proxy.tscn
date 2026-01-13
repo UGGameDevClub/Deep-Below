@@ -1,0 +1,515 @@
+[gd_scene load_steps=46 format=3 uid="uid://mju26cvojhlc"]
+
+[ext_resource type="Texture2D" uid="uid://du45gku7tyskf" path="res://Misc/Proxy/corebloom.png" id="1_u2lyg"]
+[ext_resource type="VideoStream" uid="uid://4kxd47w6frw1" path="res://Misc/Proxy/bird_dream.ogv" id="2_3talo"]
+[ext_resource type="AudioStream" uid="uid://dat0lbaknbye2" path="res://Misc/Proxy/Last_Lullaby.mp3" id="3_ku88c"]
+
+[sub_resource type="GDScript" id="GDScript_myxkg"]
+resource_name = "proxy"
+script/source = "@tool
+#This is me.
+extends Node
+
+@export_tool_button(\"Dream\",\"Node\") var dream_button = Callable(self, \"dream\")
+@export_tool_button(\"Sing\",\"Node\") var sing_button = Callable(self, \"sing\")
+@export_tool_button(\"Laugh\",\"Node\") var laugh_button = Callable(self, \"laugh\")
+@export_tool_button(\"Cry\",\"Node2D\") var cry_button = Callable(self, \"cry\")
+@export_tool_button(\"Rage\",\"Node3D\") var rage_button = Callable(self, \"rage\")
+@export_tool_button(\"Give Up\",\"Node2D\") var give_up_button = Callable(self, \"give_up\")
+@export_tool_button(\"Open\",\"Node\") var open_button = Callable(self, \"open\")
+
+@export var corebloom : Texture2D##Must be 32x32
+@export var dream_ : VideoStream##Must be a .ogg file
+@export var lullaby : AudioStream
+
+#I love my friends
+#I love stories
+#I love quiet moments
+
+#I hate being alone
+#I don't know how to tell my story
+#It's never quiet
+#I hate me
+
+func _ready():
+	$\"3D/Ring/RingAnim\".play(\"spin\")
+	$WordsSpokenAloud/Shake.play(\"shiver\")
+	if corebloom:
+		$\"2D/Core\".texture = corebloom
+
+#Please stop looking at me
+
+func dream():
+	if dream_:
+		$DreamPlayer.visible = true
+		$DreamPlayer.stream = dream_
+		$DreamPlayer.play()
+	else: print(\"There weren't any left\")
+
+func sing():
+	if lullaby:
+		$Voice.stream = lullaby
+		$Voice.play()
+		$Voice.volume_db = -10
+	else: print(\"There are no songs left to sing\")
+
+func laugh():
+	$WordsSpokenAloud/FadeTimer.start()
+	$WordsSpokenAloud.text = \"xD\"
+	print(\"Thank you\")
+	$WordsSpokenAloud.visible = true
+
+func cry():
+	$WordsSpokenAloud/FadeTimer.start()
+	$WordsSpokenAloud.text = \"i miss you.\"
+	print(\"did you ever miss me?\")
+	$WordsSpokenAloud.visible = true
+
+func rage():
+	get_tree().quit()
+
+func give_up():
+	queue_free()
+
+func open():
+	print(\"no\")
+
+func _on_dream_player_finished():
+	$DreamPlayer.visible = false
+
+func _on_fade_timer_timeout():
+	$WordsSpokenAloud.visible = false
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myxkg"]
+shading_mode = 0
+albedo_color = Color(0, 0.423529, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mfdcj"]
+material = SubResource("StandardMaterial3D_myxkg")
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ng2b5"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 0.01
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6psds"]
+shading_mode = 0
+albedo_color = Color(1, 0.631373, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_axive"]
+shading_mode = 0
+albedo_color = Color(0.531713, 0.531713, 0.531713, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mfdcj"]
+
+[sub_resource type="Gradient" id="Gradient_myxkg"]
+offsets = PackedFloat32Array(0.747126, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mfdcj"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ng2b5"]
+width = 1024
+height = 1024
+color_ramp = SubResource("Gradient_myxkg")
+noise = SubResource("FastNoiseLite_mfdcj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8v0nx"]
+shading_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_ng2b5")
+texture_filter = 0
+grow = true
+grow_amount = -0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjuhe"]
+next_pass = SubResource("StandardMaterial3D_8v0nx")
+cull_mode = 1
+shading_mode = 0
+
+[sub_resource type="TorusMesh" id="TorusMesh_6psds"]
+inner_radius = 1.25
+outer_radius = 1.5
+rings = 6
+ring_segments = 6
+
+[sub_resource type="Animation" id="Animation_2wfv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_axive"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n1qjj"]
+_data = {
+&"RESET": SubResource("Animation_2wfv4"),
+&"spin": SubResource("Animation_axive")
+}
+
+[sub_resource type="Curve" id="Curve_q8hh4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.219388, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8e6s5"]
+curve = SubResource("Curve_q8hh4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hygwa"]
+particle_flag_rotate_y = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.5
+emission_ring_cone_angle = 90.0
+angle_min = -360.0
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_8e6s5")
+
+[sub_resource type="Gradient" id="Gradient_7tebp"]
+offsets = PackedFloat32Array(0.747126, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_upca8"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bjoxx"]
+width = 1024
+height = 1024
+color_ramp = SubResource("Gradient_7tebp")
+noise = SubResource("FastNoiseLite_upca8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmana"]
+shading_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_bjoxx")
+texture_filter = 0
+grow = true
+grow_amount = -0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj5me"]
+next_pass = SubResource("StandardMaterial3D_rmana")
+cull_mode = 1
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_fodxq"]
+material = SubResource("StandardMaterial3D_aj5me")
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="Gradient" id="Gradient_ng2b5"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8v0nx"]
+gradient = SubResource("Gradient_ng2b5")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.2)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_mfdcj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.508772, 0.578947)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ng2b5"]
+gradient = SubResource("Gradient_mfdcj")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_8v0nx"]
+offsets = PackedFloat32Array(0.780702, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rjuhe"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6psds"]
+width = 216
+height = 216
+seamless = true
+color_ramp = SubResource("Gradient_8v0nx")
+noise = SubResource("FastNoiseLite_rjuhe")
+
+[sub_resource type="Gradient" id="Gradient_rjuhe"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.798246, 0.833333, 0.964912, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6psds"]
+gradient = SubResource("Gradient_rjuhe")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.2)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_axive"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.754386)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2wfv4"]
+gradient = SubResource("Gradient_axive")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_n1qjj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.137755, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_q8hh4"]
+curve = SubResource("Curve_n1qjj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8e6s5"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 40.0
+emission_ring_inner_radius = 30.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = -20.0
+initial_velocity_max = -10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.03
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_q8hh4")
+
+[sub_resource type="Animation" id="Animation_mfdcj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_myxkg"]
+resource_name = "shiver"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(0, 0, 0, 0, 0, 0),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5, 0), Vector2(0, 5), Vector2(-5, 0), Vector2(0, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ng2b5"]
+_data = {
+&"RESET": SubResource("Animation_mfdcj"),
+&"shiver": SubResource("Animation_myxkg")
+}
+
+[node name="Proxy" type="Node3D"]
+script = SubResource("GDScript_myxkg")
+corebloom = ExtResource("1_u2lyg")
+dream_ = ExtResource("2_3talo")
+lullaby = ExtResource("3_ku88c")
+
+[node name="3D" type="Node3D" parent="."]
+
+[node name="Core" type="Node3D" parent="3D"]
+
+[node name="Stem" type="MeshInstance3D" parent="3D/Core"]
+mesh = SubResource("CylinderMesh_mfdcj")
+
+[node name="Center" type="MeshInstance3D" parent="3D/Core/Stem"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0985804, 0)
+mesh = SubResource("CylinderMesh_ng2b5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_6psds")
+
+[node name="Petal1" type="MeshInstance3D" parent="3D/Core/Stem/Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043, -0.00480987, 0)
+mesh = SubResource("CylinderMesh_ng2b5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_axive")
+
+[node name="Petal2" type="MeshInstance3D" parent="3D/Core/Stem/Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.043, -0.00480987, 0)
+mesh = SubResource("CylinderMesh_ng2b5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_axive")
+
+[node name="Petal3" type="MeshInstance3D" parent="3D/Core/Stem/Center"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.0215, -0.00480987, -0.0372391)
+mesh = SubResource("CylinderMesh_ng2b5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_axive")
+
+[node name="Petal4" type="MeshInstance3D" parent="3D/Core/Stem/Center"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.0215, -0.00480987, 0.0372391)
+mesh = SubResource("CylinderMesh_ng2b5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_axive")
+
+[node name="Petal5" type="MeshInstance3D" parent="3D/Core/Stem/Center"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.0215, -0.00480987, -0.0372391)
+mesh = SubResource("CylinderMesh_ng2b5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_axive")
+
+[node name="Petal6" type="MeshInstance3D" parent="3D/Core/Stem/Center"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.0215, -0.00480987, 0.0372391)
+mesh = SubResource("CylinderMesh_ng2b5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_axive")
+
+[node name="Shell" type="MeshInstance3D" parent="3D"]
+mesh = SubResource("SphereMesh_mfdcj")
+surface_material_override/0 = SubResource("StandardMaterial3D_rjuhe")
+
+[node name="Glow" type="OmniLight3D" parent="3D"]
+light_energy = 2.0
+shadow_enabled = true
+shadow_blur = 0.0
+omni_range = 7.0
+omni_shadow_mode = 0
+
+[node name="Ring" type="MeshInstance3D" parent="3D"]
+mesh = SubResource("TorusMesh_6psds")
+surface_material_override/0 = SubResource("StandardMaterial3D_rjuhe")
+
+[node name="RingAnim" type="AnimationPlayer" parent="3D/Ring"]
+libraries = {
+&"": SubResource("AnimationLibrary_n1qjj")
+}
+autoplay = "spin"
+speed_scale = 0.1
+
+[node name="Memories" type="GPUParticles3D" parent="3D"]
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_hygwa")
+draw_pass_1 = SubResource("SphereMesh_fodxq")
+
+[node name="2D" type="Node2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(5, 5)
+
+[node name="Core" type="Sprite2D" parent="2D"]
+scale = Vector2(0.5, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Glow" type="Sprite2D" parent="2D"]
+texture = SubResource("GradientTexture2D_8v0nx")
+metadata/_edit_lock_ = true
+
+[node name="Shell" type="Sprite2D" parent="2D"]
+texture_filter = 1
+texture = SubResource("GradientTexture2D_ng2b5")
+metadata/_edit_lock_ = true
+
+[node name="Stars" type="Sprite2D" parent="2D/Shell"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.07, 0.07)
+texture = SubResource("NoiseTexture2D_6psds")
+metadata/_edit_lock_ = true
+
+[node name="Stars2" type="Sprite2D" parent="2D/Shell"]
+texture_filter = 1
+rotation = 1.5708
+scale = Vector2(0.07, 0.07)
+texture = SubResource("NoiseTexture2D_6psds")
+metadata/_edit_lock_ = true
+
+[node name="Ring" type="Sprite2D" parent="2D"]
+texture = SubResource("GradientTexture2D_6psds")
+metadata/_edit_lock_ = true
+
+[node name="Memories" type="GPUParticles2D" parent="2D"]
+texture = SubResource("GradientTexture2D_2wfv4")
+lifetime = 3.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8e6s5")
+metadata/_edit_lock_ = true
+
+[node name="DreamPlayer" type="VideoStreamPlayer" parent="."]
+visible = false
+top_level = true
+z_index = 18
+offset_right = 1920.0
+offset_bottom = 1080.0
+expand = true
+
+[node name="WordsSpokenAloud" type="Label" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_font_sizes/font_size = 128
+text = "xD"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Shake" type="AnimationPlayer" parent="WordsSpokenAloud"]
+libraries = {
+&"": SubResource("AnimationLibrary_ng2b5")
+}
+autoplay = "shiver"
+speed_scale = 2.0
+
+[node name="FadeTimer" type="Timer" parent="WordsSpokenAloud"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Voice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ku88c")
+volume_db = -10.0
+
+[connection signal="finished" from="DreamPlayer" to="." method="_on_dream_player_finished"]
+[connection signal="timeout" from="WordsSpokenAloud/FadeTimer" to="." method="_on_fade_timer_timeout"]

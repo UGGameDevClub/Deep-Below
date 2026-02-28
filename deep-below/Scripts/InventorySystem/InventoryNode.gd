@@ -6,6 +6,11 @@ class_name InventoryNode
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
+	InventoryAutoload.AddItem.connect(add_item)
+	InventoryAutoload.RemoveItem.connect(remove_item)
+	
+	
+	
 	if InventoryData != null:
 		
 		

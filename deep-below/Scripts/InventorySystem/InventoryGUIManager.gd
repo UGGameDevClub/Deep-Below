@@ -4,8 +4,14 @@ extends Control
 #@export var GUINode : Node
 @export var InvNode : InventoryNode
 @export var InvUI : GridContainer
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	InventoryAutoload.UpdateInvGUI.connect(populate_inventory_ui)
+	
+	
 	if InvNode != null:
 		if InvNode.InventoryData != null:
 			prepare_inventory_icons()

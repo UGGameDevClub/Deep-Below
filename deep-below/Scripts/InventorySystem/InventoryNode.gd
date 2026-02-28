@@ -33,12 +33,13 @@ func add_item(newitem : SlotData):
 			if slots.Itemdata == newitem.Itemdata:
 				
 				slots.ItemCount += newitem.ItemCount
+				InventoryAutoload.UpdateInvGUI.emit()
 				
 				pass
 			else:
 				
 				InventoryData.SlotArray.append(newitem)
-				
+				InventoryAutoload.UpdateInvGUI.emit()
 				pass
 		
 		
@@ -53,7 +54,7 @@ func remove_item(item : ItemData):
 			if item == InventoryData.SlotArray[slotindex]:
 				
 				InventoryData.SlotArray.remove_at(slotindex)
-				
+				InventoryAutoload.UpdateInvGUI.emit()
 				pass
 			else:
 				

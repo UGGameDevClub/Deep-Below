@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var max_health = 100.0
+@export var max_health = 100.0##Maximum amount of health the player can have
 @onready var progress_bar = $ProgressBar
 
 signal damage_taken(amount)

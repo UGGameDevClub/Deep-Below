@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://5ocqnf6gf33f"]
+
+[ext_resource type="Script" uid="uid://dp1gmf8flj5nx" path="res://Scripts/InventorySystem/InventoryButton.gd" id="1_02b50"]
+[ext_resource type="Texture2D" uid="uid://dn24s7y6jx0rk" path="res://Assets/Items/InventoryIcons/repair_tool_icon.png" id="2_02b50"]
+
+[node name="Button" type="Button" unique_id=1646267367 node_paths=PackedStringArray("Itemicon", "Itemamt")]
+anchors_preset = -1
+anchor_right = 0.06875
+anchor_bottom = 0.12407407
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_02b50")
+Itemicon = NodePath("ItemIcon")
+Itemamt = NodePath("Panel/ItemAmtLabel")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="." unique_id=520061558]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0074627
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="ItemAmtLabel" type="Label" parent="Panel" unique_id=653417168]
+z_index = 5
+layout_mode = 0
+offset_left = 51.0
+offset_top = 74.0
+offset_right = 127.0
+offset_bottom = 129.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 40
+text = "64"
+horizontal_alignment = 2
+
+[node name="ItemIcon" type="TextureRect" parent="." unique_id=2112496419]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 132.0
+offset_bottom = 134.0
+texture = ExtResource("2_02b50")
+expand_mode = 4

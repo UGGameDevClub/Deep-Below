@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="InventoryRes" format=3 uid="uid://bt523bm3ixxoo"]
+
+[ext_resource type="Script" uid="uid://bj4xvayxhbgy8" path="res://Scripts/ResourceBases/InventorySystem/SlotData.gd" id="1_q7ec8"]
+[ext_resource type="Texture2D" uid="uid://dn24s7y6jx0rk" path="res://Assets/Items/InventoryIcons/repair_tool_icon.png" id="2_cy2y3"]
+[ext_resource type="Script" uid="uid://dnfj0pb4nmx3d" path="res://Scripts/ResourceBases/InventorySystem/ItemData.gd" id="2_jxeka"]
+[ext_resource type="Script" uid="uid://bihf3jq2pkuq4" path="res://Scripts/ResourceBases/InventorySystem/InventoryRes.gd" id="3_cy2y3"]
+
+[sub_resource type="Resource" id="Resource_jxeka"]
+script = ExtResource("2_jxeka")
+Itemname = "Repair Tool"
+Itemtexture = ExtResource("2_cy2y3")
+metadata/_custom_type_script = "uid://dnfj0pb4nmx3d"
+
+[sub_resource type="Resource" id="Resource_onbb1"]
+script = ExtResource("1_q7ec8")
+Itemdata = SubResource("Resource_jxeka")
+Itemcount = 5
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[sub_resource type="Resource" id="Resource_atm87"]
+script = ExtResource("1_q7ec8")
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[sub_resource type="Resource" id="Resource_bpxen"]
+script = ExtResource("1_q7ec8")
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[resource]
+script = ExtResource("3_cy2y3")
+SlotArray = Array[ExtResource("1_q7ec8")]([SubResource("Resource_onbb1"), SubResource("Resource_atm87"), SubResource("Resource_bpxen")])
+metadata/_custom_type_script = "uid://bihf3jq2pkuq4"

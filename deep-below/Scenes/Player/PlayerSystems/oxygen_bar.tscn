@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cepvh1ouy1bfe"]
+
+[ext_resource type="Script" uid="uid://e0gc1ej18v6e" path="res://Scripts/Player/PlayerSystems/oxygen_bar.gd" id="1_6pev6"]
+
+[node name="Oxygen_bar" type="Node2D" unique_id=1130081990]
+script = ExtResource("1_6pev6")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1764920301]
+self_modulate = Color(1.5645489, 7.5530915, 18.892157, 1)
+offset_left = -112.0
+offset_top = -15.0
+offset_right = 158.0
+offset_bottom = 12.0
+value = 100.0
+show_percentage = false
+
+[node name="text" type="Label" parent="ProgressBar" unique_id=1946799112]
+layout_mode = 0
+offset_left = 74.0
+offset_right = 212.0
+offset_bottom = 23.0
+text = "Oxygen level"
+
+[node name="Updater" type="Timer" parent="." unique_id=122739840]
+autostart = true
+
+[connection signal="timeout" from="Updater" to="." method="_on_updater_timeout"]

@@ -5,6 +5,38 @@
 [ext_resource type="Script" uid="uid://dnfj0pb4nmx3d" path="res://Scripts/ResourceBases/InventorySystem/ItemData.gd" id="2_jxeka"]
 [ext_resource type="Script" uid="uid://bihf3jq2pkuq4" path="res://Scripts/ResourceBases/InventorySystem/InventoryRes.gd" id="3_cy2y3"]
 
+[sub_resource type="Resource" id="Resource_cy2y3"]
+script = ExtResource("2_jxeka")
+Itemname = "Repair Tool (again lol)"
+Itemtexture = ExtResource("2_cy2y3")
+metadata/_custom_type_script = "uid://dnfj0pb4nmx3d"
+
+[sub_resource type="Resource" id="Resource_fwb41"]
+script = ExtResource("1_q7ec8")
+Itemdata = SubResource("Resource_cy2y3")
+Itemcount = 10
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[sub_resource type="Resource" id="Resource_uxq47"]
+script = ExtResource("1_q7ec8")
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[sub_resource type="Resource" id="Resource_prttb"]
+script = ExtResource("1_q7ec8")
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[sub_resource type="Resource" id="Resource_gnwvt"]
+script = ExtResource("1_q7ec8")
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[sub_resource type="Resource" id="Resource_kd0mv"]
+script = ExtResource("1_q7ec8")
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
+[sub_resource type="Resource" id="Resource_f2k4e"]
+script = ExtResource("1_q7ec8")
+metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
+
 [sub_resource type="Resource" id="Resource_jxeka"]
 script = ExtResource("2_jxeka")
 Itemname = "Repair Tool"
@@ -17,8 +49,15 @@ Itemdata = SubResource("Resource_jxeka")
 Itemcount = 5
 metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
 
+[sub_resource type="Resource" id="Resource_5e7nj"]
+script = ExtResource("2_jxeka")
+Itemname = "Among"
+metadata/_custom_type_script = "uid://dnfj0pb4nmx3d"
+
 [sub_resource type="Resource" id="Resource_atm87"]
 script = ExtResource("1_q7ec8")
+Itemdata = SubResource("Resource_5e7nj")
+Itemcount = 1
 metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
 
 [sub_resource type="Resource" id="Resource_bpxen"]
@@ -28,4 +67,5 @@ metadata/_custom_type_script = "uid://bj4xvayxhbgy8"
 [resource]
 script = ExtResource("3_cy2y3")
 SlotArray = Array[ExtResource("1_q7ec8")]([SubResource("Resource_onbb1"), SubResource("Resource_atm87"), SubResource("Resource_bpxen")])
+HotBar = Array[ExtResource("1_q7ec8")]([SubResource("Resource_fwb41"), SubResource("Resource_uxq47"), SubResource("Resource_prttb"), SubResource("Resource_gnwvt"), SubResource("Resource_kd0mv"), SubResource("Resource_f2k4e")])
 metadata/_custom_type_script = "uid://bihf3jq2pkuq4"

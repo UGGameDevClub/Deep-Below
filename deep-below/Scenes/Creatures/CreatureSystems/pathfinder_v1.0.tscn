@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://mn7167rnpq45"]
+
+[ext_resource type="PackedScene" uid="uid://oht54hub28wj" path="res://Scenes/Creatures/CreatureSystems/targeter_v1.0.tscn" id="1_72r7b"]
+
+[node name="BasicPathfinder" type="Node3D" unique_id=1195184269]
+
+[node name="BasicTargeter" parent="." unique_id=934725037 instance=ExtResource("1_72r7b")]

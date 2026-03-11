@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://6tnqrvf8knep"]
+
+[ext_resource type="Script" uid="uid://d1jxl7sbb20gm" path="res://Scripts/Systems/resource_spawner.gd" id="1_1getn"]
+[ext_resource type="PackedScene" uid="uid://d2xi1g2kjrwfw" path="res://Scenes/Game World/Items/Minerals/lithium.tscn" id="2_mpsx6"]
+
+[sub_resource type="Animation" id="Animation_1getn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnPoint:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001)]
+}
+
+[sub_resource type="Animation" id="Animation_mpsx6"]
+resource_name = "grow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnPoint:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2eijc"]
+_data = {
+&"RESET": SubResource("Animation_1getn"),
+&"grow": SubResource("Animation_mpsx6")
+}
+
+[node name="ResourceSpawner" type="Node3D" unique_id=1675671955]
+script = ExtResource("1_1getn")
+
+[node name="SpawnPoint" type="Node3D" parent="." unique_id=662807280]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
+
+[node name="Lithium" parent="SpawnPoint" unique_id=2023164429 instance=ExtResource("2_mpsx6")]
+
+[node name="RespawnTimer" type="Timer" parent="." unique_id=1119884415]
+one_shot = true
+
+[node name="RespawnAnimation" type="AnimationPlayer" parent="." unique_id=540000188]
+libraries/ = SubResource("AnimationLibrary_2eijc")
+
+[connection signal="timeout" from="RespawnTimer" to="." method="respawn"]

@@ -43,6 +43,7 @@ func _unhandled_input(_event):
 		if !object_interact_state:
 			open()
 		audio_node.play()
+		input_detected.emit(object_interact_state)
 	if Input.is_action_just_pressed("escape") and object_interact_state:
 		close()
 
@@ -56,19 +57,18 @@ func _on_body_exited(_body):
 	close()
 
 func open():
-	if enable_mouse_on_interact:
-		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
-	object_interact_state = true
-	debug_particles.process_material.color = Color("00ff00ff")
-	input_detected.emit(object_interact_state)
-	if enable_debug_mode:
+	if object_interact_state:
+		if enable_mouse_on_interact:
+			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
+		object_interact_state = true
+		debug_particles.process_material.color = Color("00ff00ff")
+		if enable_debug_mode:
 			debug_particles.emitting = true
 
 func close():
-	print("closing")
-	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
-	object_interact_state = false
-	debug_particles.process_material.color = Color("ff0000ff")
-	input_detected.emit(object_interact_state)
-	if enable_debug_mode:
+	if !object_interact_state:
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
+		object_interact_state = false
+		debug_particles.process_material.color = Color("ff0000ff")
+		if enable_debug_mode:
 			debug_particles.emitting = true

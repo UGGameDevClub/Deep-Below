@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://6tnqrvf8knep"]
 
 [ext_resource type="Script" uid="uid://d1jxl7sbb20gm" path="res://Scripts/Systems/resource_spawner.gd" id="1_1getn"]
-[ext_resource type="PackedScene" uid="uid://d2xi1g2kjrwfw" path="res://Scenes/Game World/Items/Minerals/lithium.tscn" id="2_mpsx6"]
 
 [sub_resource type="Animation" id="Animation_1getn"]
 length = 0.001
@@ -44,8 +43,6 @@ script = ExtResource("1_1getn")
 
 [node name="SpawnPoint" type="Node3D" parent="." unique_id=662807280]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
-
-[node name="Lithium" parent="SpawnPoint" unique_id=2023164429 instance=ExtResource("2_mpsx6")]
 
 [node name="RespawnTimer" type="Timer" parent="." unique_id=1119884415]
 one_shot = true

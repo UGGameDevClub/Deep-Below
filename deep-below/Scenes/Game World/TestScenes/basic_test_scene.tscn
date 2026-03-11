@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dd8gyq7v8nh8w" path="res://Scenes/Game World/Props/EnvironmentalDecorations/basic_rock.tscn" id="3_3k08h"]
 [ext_resource type="PackedScene" uid="uid://6tnqrvf8knep" path="res://Scenes/Game World/Items/resource_spawner.tscn" id="3_pf2rt"]
 [ext_resource type="PackedScene" uid="uid://d2xi1g2kjrwfw" path="res://Scenes/Game World/Items/Minerals/lithium.tscn" id="4_1xi28"]
+[ext_resource type="PackedScene" uid="uid://r0idd4ksgjjv" path="res://Scenes/Game World/Items/Minerals/nickel.tscn" id="5_ao481"]
+[ext_resource type="PackedScene" uid="uid://d1qqt21kp1l7w" path="res://Scenes/Game World/Items/Minerals/sulphur.tscn" id="6_gb310"]
+[ext_resource type="PackedScene" uid="uid://dxaiti3wqm0d0" path="res://Scenes/Game World/Items/Minerals/lead.tscn" id="7_8v3cd"]
 
 [sub_resource type="Gradient" id="Gradient_g1swy"]
 colors = PackedColorArray(0, 0, 0, 1, 0.59997064, 0.73147446, 1, 1)
@@ -60,7 +63,6 @@ noise = SubResource("FastNoiseLite_ao481")
 color_ramp = SubResource("Gradient_y0jl0")
 seamless = true
 as_normal_map = true
-bump_strength = 20.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8v3cd"]
 albedo_texture = SubResource("NoiseTexture2D_3k08h")
@@ -130,6 +132,7 @@ debug_fill = false
 
 [node name="Player" parent="." unique_id=287700029 instance=ExtResource("1_pkxsh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5244589, 0)
+is_underwater = true
 
 [node name="Testlight" type="OmniLight3D" parent="Player" unique_id=1177837631]
 light_color = Color(1, 0.9137255, 0.6862745, 1)
@@ -162,7 +165,7 @@ skeleton = NodePath("../..")
 
 [node name="ResourceSpawner" parent="MineralTesting/BasicRock2" unique_id=1556490963 instance=ExtResource("3_pf2rt")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.38971353, 0)
-resource_scene = ExtResource("4_1xi28")
+resource_scene = ExtResource("5_ao481")
 respawn_time = 12.0
 
 [node name="BasicRock3" parent="MineralTesting" unique_id=1142458408 instance=ExtResource("3_3k08h")]
@@ -171,5 +174,14 @@ skeleton = NodePath("../..")
 
 [node name="ResourceSpawner" parent="MineralTesting/BasicRock3" unique_id=121190049 instance=ExtResource("3_pf2rt")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.38971353, 0)
-resource_scene = ExtResource("4_1xi28")
+resource_scene = ExtResource("6_gb310")
+respawn_time = 14.0
+
+[node name="BasicRock4" parent="MineralTesting" unique_id=1399276642 instance=ExtResource("3_3k08h")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 3.3657103, -0.33151734, 3.1208582)
+skeleton = NodePath("../..")
+
+[node name="ResourceSpawner" parent="MineralTesting/BasicRock4" unique_id=1736774031 instance=ExtResource("3_pf2rt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.38971353, 0)
+resource_scene = ExtResource("7_8v3cd")
 respawn_time = 14.0

@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://de3043prr1ege"]
+
+[ext_resource type="Script" uid="uid://bxje68lfjpw4y" path="res://Scripts/InventorySystem/Hotbar/Hotbar.gd" id="1_0iceo"]
+[ext_resource type="PackedScene" uid="uid://5ocqnf6gf33f" path="res://Scenes/InventorySystem/ItemSlot.tscn" id="1_nec2s"]
+[ext_resource type="Script" uid="uid://36k4xijrikdk" path="res://Scripts/InventorySystem/InventoryNode.gd" id="3_is4ap"]
+[ext_resource type="Resource" uid="uid://bt523bm3ixxoo" path="res://Resources/Inventory/Inventory.tres" id="4_ds8w3"]
+
+[node name="Control" type="Control" unique_id=911003450 node_paths=PackedStringArray("InvNode", "InvUI")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_0iceo")
+InvNode = NodePath("InventoryNode")
+InvUI = NodePath("HBoxContainer")
+
+[node name="Panel" type="Panel" parent="." unique_id=365175922]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.011458334
+anchor_top = -0.0074074073
+anchor_right = 0.4671875
+anchor_bottom = 0.13611111
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=806950169]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00052083336
+anchor_right = 0.48125
+anchor_bottom = 0.12037037
+theme_override_constants/separation = 140
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" parent="HBoxContainer" unique_id=1646267367 instance=ExtResource("1_nec2s")]
+layout_mode = 2
+
+[node name="Button2" parent="HBoxContainer" unique_id=1223369095 instance=ExtResource("1_nec2s")]
+layout_mode = 2
+
+[node name="Button3" parent="HBoxContainer" unique_id=1469394408 instance=ExtResource("1_nec2s")]
+layout_mode = 2
+
+[node name="Button4" parent="HBoxContainer" unique_id=741977709 instance=ExtResource("1_nec2s")]
+layout_mode = 2
+
+[node name="Button5" parent="HBoxContainer" unique_id=1044328032 instance=ExtResource("1_nec2s")]
+layout_mode = 2
+
+[node name="Button6" parent="HBoxContainer" unique_id=1989627048 instance=ExtResource("1_nec2s")]
+layout_mode = 2
+
+[node name="InventoryNode" type="Node" parent="." unique_id=1483523050]
+script = ExtResource("3_is4ap")
+InventoryData = ExtResource("4_ds8w3")
+metadata/_custom_type_script = "uid://36k4xijrikdk"

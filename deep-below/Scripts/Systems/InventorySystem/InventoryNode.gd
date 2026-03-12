@@ -16,8 +16,8 @@ func add_item(newitem : SlotData):
 			if slots.Itemdata == newitem.Itemdata:
 				slots.ItemCount += newitem.ItemCount
 				InventoryAutoload.UpdateInvGUI.emit()
-			else:
-				InventoryData.SlotArray.append(newitem)
+			elif slots.Itemdata == null or slots == null:
+				slots = newitem
 				InventoryAutoload.UpdateInvGUI.emit()
 
 func remove_item(item : ItemData):

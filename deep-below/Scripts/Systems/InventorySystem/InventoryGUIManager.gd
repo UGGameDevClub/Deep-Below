@@ -24,11 +24,11 @@ func _ready():
 func prepare_button_signals():
 	for nodes in InvUI.get_children():
 		if nodes is Button:
-			nodes.connect("pressedwithref",idk)
+			nodes.connect("pressedwithref",inventory_button_press_handler)
 
 	for nodes in HotbarUI.get_children():
 		if nodes is Button:
-			nodes.connect("pressedwithref",idk)
+			nodes.connect("pressedwithref",inventory_button_press_handler)
 
 func prepare_inventory_icons(Inv_Node : Control):
 	if InvUI != null:
@@ -55,7 +55,7 @@ func populate_inventory_ui():
 					InvUI.get_child(items).Itemamt.text = " "
 	populate_hotbar_ui()
 
-func idk(buttonref : InventoryButton):
+func inventory_button_press_handler(buttonref : InventoryButton):
 	if selecteditem == null:
 		selecteditem = buttonref 
 		print(selecteditem)

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bmdntl6d4pa0o"]
+
+[ext_resource type="Script" uid="uid://cedigcnhfr3wq" path="res://Scripts/Player/PlayerSystems/player.gd" id="1_uvnfx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tugb3"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tugb3"]
+
+[node name="Player" type="CharacterBody3D" unique_id=287700029]
+collision_layer = 3
+script = ExtResource("1_uvnfx")
+
+[node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1642345947]
+shape = SubResource("CapsuleShape3D_tugb3")
+
+[node name="EditorMesh" type="MeshInstance3D" parent="." unique_id=2100339050]
+mesh = SubResource("CapsuleMesh_tugb3")
+
+[node name="CamPositioner" type="RemoteTransform3D" parent="." unique_id=596061447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+remote_path = NodePath("../Downscaler/SubViewport/Camera")
+
+[node name="Downscaler" type="SubViewportContainer" parent="." unique_id=570067963]
+editor_description = "Downscales camera quality
+Does not reflect actual final look of the game, this is here so that I (Ithiel) can test the game on my crappy potato of a computer, if you want it to be at full quality as intended, set the\"Stretch Shrink\" property to 1"
+offset_right = 1920.0
+offset_bottom = 1080.0
+stretch = true
+stretch_shrink = 2
+metadata/_edit_lock_ = true
+
+[node name="SubViewport" type="SubViewport" parent="Downscaler" unique_id=1508529881]
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="Camera" type="Camera3D" parent="Downscaler/SubViewport" unique_id=548383720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

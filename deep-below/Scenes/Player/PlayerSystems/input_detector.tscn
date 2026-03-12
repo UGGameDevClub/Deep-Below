@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://bn4f7tbyito0t"]
+
+[ext_resource type="Script" uid="uid://bskjme08ffuqc" path="res://Scripts/Player/PlayerSystems/input_detector.gd" id="1_8vb68"]
+[ext_resource type="Texture2D" uid="uid://cjqam2xtr61fy" path="res://Assets/2D/UI/Misc/placeholder_hollow_circle.tres" id="2_6yogi"]
+[ext_resource type="Texture2D" uid="uid://72g4glmvbft0" path="res://Assets/2D/Icons/interaction_icon.svg" id="3_qvfkg"]
+
+[sub_resource type="Curve" id="Curve_8vb68"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_qvfkg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_yf2j1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_8vb68"]
+curve_x = SubResource("Curve_8vb68")
+curve_y = SubResource("Curve_qvfkg")
+curve_z = SubResource("Curve_yf2j1")
+
+[sub_resource type="Curve" id="Curve_6yogi"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qvfkg"]
+curve = SubResource("Curve_6yogi")
+
+[sub_resource type="Curve" id="Curve_fxsy2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yf2j1"]
+curve = SubResource("Curve_fxsy2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_soa4j"]
+lifetime_randomness = 0.5
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_8vb68")
+orbit_velocity_min = 0.1000001
+orbit_velocity_max = 0.5000001
+orbit_velocity_curve = SubResource("CurveTexture_qvfkg")
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_yf2j1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vb68"]
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_6yogi"]
+material = SubResource("StandardMaterial3D_8vb68")
+size = Vector2(0.05, 0.05)
+
+[sub_resource type="Animation" id="Animation_soa4j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(88, 88)]
+}
+
+[sub_resource type="Animation" id="Animation_8vb68"]
+resource_name = "top_center"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 88)]
+}
+
+[sub_resource type="Animation" id="Animation_lnok1"]
+resource_name = "top_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(88, 88)]
+}
+
+[sub_resource type="Animation" id="Animation_rb12a"]
+resource_name = "top_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1832, 88)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b4qya"]
+_data = {
+&"RESET": SubResource("Animation_soa4j"),
+&"top_center": SubResource("Animation_8vb68"),
+&"top_left": SubResource("Animation_lnok1"),
+&"top_right": SubResource("Animation_rb12a")
+}
+
+[node name="InputDetector" type="Area3D" unique_id=1830051855]
+editor_description = "Add a Collision2D node as a child of this node to determine the range at which it will detect inputs.
+Without any collision shape it will not detect any inputs whatsoever."
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_8vb68")
+indicator_texture = ExtResource("2_6yogi")
+
+[node name="InteractionSound" type="AudioStreamPlayer" parent="." unique_id=414371328]
+
+[node name="DebugParticles" type="GPUParticles3D" parent="." unique_id=292381193]
+visible = false
+emitting = false
+amount = 32
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_soa4j")
+draw_pass_1 = SubResource("QuadMesh_6yogi")
+
+[node name="IndicatorSprite" type="Sprite2D" parent="." unique_id=1175821892]
+position = Vector2(88, 88)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_6yogi")
+
+[node name="Positioner" type="AnimationPlayer" parent="IndicatorSprite" unique_id=1792473675]
+libraries/ = SubResource("AnimationLibrary_b4qya")
+autoplay = &"top_left"
+
+[node name="EditorNodeMarker" type="Sprite3D" parent="." unique_id=1685804441]
+pixel_size = 0.0005
+billboard = 1
+fixed_size = true
+texture = ExtResource("3_qvfkg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

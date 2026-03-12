@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://cpvvosv0k21cm"]
+
+[ext_resource type="PackedScene" uid="uid://bmdntl6d4pa0o" path="res://Scenes/Player/player.tscn" id="1_pkxsh"]
+[ext_resource type="PackedScene" uid="uid://dd8gyq7v8nh8w" path="res://Scenes/Game World/Props/EnvironmentalDecorations/basic_rock.tscn" id="3_3k08h"]
+[ext_resource type="PackedScene" uid="uid://6tnqrvf8knep" path="res://Scenes/Game World/Items/resource_spawner.tscn" id="3_pf2rt"]
+[ext_resource type="PackedScene" uid="uid://d2xi1g2kjrwfw" path="res://Scenes/Game World/Items/Minerals/lithium.tscn" id="4_1xi28"]
+[ext_resource type="PackedScene" uid="uid://r0idd4ksgjjv" path="res://Scenes/Game World/Items/Minerals/nickel.tscn" id="5_ao481"]
+[ext_resource type="PackedScene" uid="uid://d1qqt21kp1l7w" path="res://Scenes/Game World/Items/Minerals/sulphur.tscn" id="6_gb310"]
+[ext_resource type="PackedScene" uid="uid://dxaiti3wqm0d0" path="res://Scenes/Game World/Items/Minerals/lead.tscn" id="7_8v3cd"]
+
+[sub_resource type="Gradient" id="Gradient_g1swy"]
+colors = PackedColorArray(0, 0, 0, 1, 0.59997064, 0.73147446, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pf2rt"]
+gradient = SubResource("Gradient_g1swy")
+
+[sub_resource type="Environment" id="Environment_g1swy"]
+background_mode = 1
+ambient_light_energy = 0.0
+reflected_light_source = 1
+tonemap_mode = 2
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 5.0
+fog_depth_end = 50.0
+adjustment_color_correction = SubResource("GradientTexture1D_pf2rt")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g1swy"]
+size = Vector2(200, 200)
+
+[sub_resource type="Gradient" id="Gradient_pf2rt"]
+colors = PackedColorArray(0.24772534, 0.17310733, 0.111333005, 1, 0.43744352, 0.3186199, 0.22055161, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1xi28"]
+noise_type = 3
+fractal_type = 0
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3k08h"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_1xi28")
+color_ramp = SubResource("Gradient_pf2rt")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_pkxsh"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g1swy"]
+gradient = SubResource("Gradient_pkxsh")
+fill_from = Vector2(0.32592592, 0.5888889)
+
+[sub_resource type="Gradient" id="Gradient_y0jl0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ao481"]
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gb310"]
+width = 2048
+height = 2048
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_ao481")
+color_ramp = SubResource("Gradient_y0jl0")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8v3cd"]
+albedo_texture = SubResource("NoiseTexture2D_3k08h")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_gb310")
+heightmap_scale = 16.0
+heightmap_texture = SubResource("GradientTexture2D_g1swy")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pkxsh"]
+points = PackedVector3Array(-100, 0, -100, -100, 0, 100, 100, 0, -100, 100, 0, 100)
+
+[sub_resource type="Curve" id="Curve_g1swy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pf2rt"]
+curve = SubResource("Curve_g1swy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1xi28"]
+emission_shape_scale = Vector3(20, 0.001, 20)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 3, 0)
+scale_min = 0.049999997
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_pf2rt")
+
+[sub_resource type="Gradient" id="Gradient_3k08h"]
+offsets = PackedFloat32Array(0.654321, 0.9876543, 1)
+colors = PackedColorArray(0, 0, 0, 0.17254902, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y0jl0"]
+gradient = SubResource("Gradient_3k08h")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.90000004, 0.2)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ao481"]
+transparency = 4
+albedo_texture = SubResource("GradientTexture2D_y0jl0")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_gb310"]
+material = SubResource("StandardMaterial3D_ao481")
+
+[node name="TestScene" type="Node3D" unique_id=1404547345]
+
+[node name="TestEnvironment" type="WorldEnvironment" parent="." unique_id=196752606]
+environment = SubResource("Environment_g1swy")
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1467772811]
+mesh = SubResource("PlaneMesh_g1swy")
+surface_material_override/0 = SubResource("StandardMaterial3D_8v3cd")
+
+[node name="Collision" type="StaticBody3D" parent="Ground" unique_id=351688608]
+
+[node name="Hitbox" type="CollisionShape3D" parent="Ground/Collision" unique_id=1931897816]
+shape = SubResource("ConvexPolygonShape3D_pkxsh")
+debug_color = Color(1, 1, 1, 0.41960785)
+debug_fill = false
+
+[node name="Player" parent="." unique_id=287700029 instance=ExtResource("1_pkxsh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5244589, 0)
+is_underwater = true
+
+[node name="Testlight" type="OmniLight3D" parent="Player" unique_id=1177837631]
+light_color = Color(1, 0.9137255, 0.6862745, 1)
+shadow_enabled = true
+shadow_opacity = 0.75
+omni_range = 15.0
+omni_shadow_mode = 0
+
+[node name="BubbleParticles" type="GPUParticles3D" parent="Player" unique_id=1307525467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+cast_shadow = 0
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_1xi28")
+draw_pass_1 = SubResource("QuadMesh_gb310")
+
+[node name="MineralTesting" type="Node3D" parent="." unique_id=137653061]
+
+[node name="BasicRock" parent="MineralTesting" unique_id=2097455611 instance=ExtResource("3_3k08h")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.788013, -0.33151734, -5.0564165)
+skeleton = NodePath("../..")
+
+[node name="ResourceSpawner" parent="MineralTesting/BasicRock" unique_id=1675671955 instance=ExtResource("3_pf2rt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.38971353, 0)
+resource_scene = ExtResource("4_1xi28")
+respawn_time = 10.0
+
+[node name="BasicRock2" parent="MineralTesting" unique_id=1383092690 instance=ExtResource("3_3k08h")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.211987, -0.33151734, -9.0564165)
+skeleton = NodePath("../..")
+
+[node name="ResourceSpawner" parent="MineralTesting/BasicRock2" unique_id=1556490963 instance=ExtResource("3_pf2rt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.38971353, 0)
+resource_scene = ExtResource("5_ao481")
+respawn_time = 12.0
+
+[node name="BasicRock3" parent="MineralTesting" unique_id=1142458408 instance=ExtResource("3_3k08h")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 10.211987, -0.33151734, -1.0564165)
+skeleton = NodePath("../..")
+
+[node name="ResourceSpawner" parent="MineralTesting/BasicRock3" unique_id=121190049 instance=ExtResource("3_pf2rt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.38971353, 0)
+resource_scene = ExtResource("6_gb310")
+respawn_time = 14.0
+
+[node name="BasicRock4" parent="MineralTesting" unique_id=1399276642 instance=ExtResource("3_3k08h")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 3.3657103, -0.33151734, 3.1208582)
+skeleton = NodePath("../..")
+
+[node name="ResourceSpawner" parent="MineralTesting/BasicRock4" unique_id=1736774031 instance=ExtResource("3_pf2rt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.38971353, 0)
+resource_scene = ExtResource("7_8v3cd")
+respawn_time = 14.0

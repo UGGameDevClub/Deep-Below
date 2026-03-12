@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dd8gyq7v8nh8w"]
+
+[ext_resource type="Material" uid="uid://cv5v2tgythx0b" path="res://Assets/3D/Materials/host_rock_matrix.tres" id="1_0qkpx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ugcdj"]
+radial_segments = 7
+rings = 3
+
+[node name="BasicRock" type="MeshInstance3D" unique_id=2097455611]
+mesh = SubResource("SphereMesh_ugcdj")
+surface_material_override/0 = ExtResource("1_0qkpx")

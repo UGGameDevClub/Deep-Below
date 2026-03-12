@@ -21,7 +21,7 @@ func _ready() -> void:
 			prepare_inventory_icons(InvUI)
 			prepare_inventory_icons(HotbarUI)
 			populate_inventory_ui()
-			populate_hotbar_ui()
+			#populate_hotbar_ui()
 			
 			pass
 	else:
@@ -34,6 +34,16 @@ func _ready() -> void:
 func prepare_button_signals():
 	
 	for nodes in InvUI.get_children():
+		
+		if nodes is Button:
+			
+			nodes.connect("pressedwithref",idk)
+			
+			pass
+		
+		pass
+	
+	for nodes in HotbarUI.get_children():
 		
 		if nodes is Button:
 			
@@ -103,6 +113,7 @@ func populate_inventory_ui():
 		pass
 	#
 	
+	populate_hotbar_ui()
 	pass
 
 

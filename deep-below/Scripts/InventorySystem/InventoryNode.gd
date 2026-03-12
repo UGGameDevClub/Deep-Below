@@ -65,11 +65,11 @@ func get_inventory_data():
 func get_specific_inventory_slotdata(buttonref : InventoryButton):
 	
 	
-	if buttonref.get_parent().get_parent() is InventoryGUIManager:
+	if buttonref.get_parent() is GridContainer:
 		
 		return InventoryData.SlotArray[buttonref.get_index()]
 		
-	elif buttonref.get_parent().get_parent() is HotbarGUIManager:
+	if buttonref.get_parent() is HBoxContainer:
 		
 		return InventoryData.HotBar[buttonref.get_index()]
 		
@@ -83,11 +83,11 @@ func get_specific_inventory_slotdata(buttonref : InventoryButton):
 
 func set_specific_inventory_slotdata(buttonref : InventoryButton,buttonslotdata : SlotData):
 	
-	if buttonref.get_parent().get_parent() is InventoryGUIManager:
+	if buttonref.get_parent() is GridContainer:
 		
 		InventoryData.SlotArray[buttonref.get_index()] = buttonslotdata
 		
-	elif buttonref.get_parent().get_parent() is HotbarGUIManager:
+	elif buttonref.get_parent() is HBoxContainer: ##hardcoded to specific types for now...
 		
 		InventoryData.HotBar[buttonref.get_index()] = buttonslotdata
 		

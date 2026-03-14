@@ -1,15 +1,15 @@
 @icon("res://Assets/2D/Icons/interaction_icon.svg")
 extends Area3D
-class_name InputDetector
 
 @onready var audio_node = $InteractionSound
 @onready var debug_particles = $DebugParticles
 @onready var indicator_sprite = $IndicatorSprite
 @onready var positioner = $IndicatorSprite/Positioner
 @onready var editor_node_marker = $EditorNodeMarker
+@onready var movement_disabler = $MovementDisabler/Hitbox
 
 @export_group("Indicator Texture Settings")
-@export var indicator_texture : Texture2D##[Not functional yet] This texture will appear whenever the player is within range of the input detector (Note the texture must be 512x512 or less, otherwise it will be too large and may be clipped out of view)
+@export var indicator_texture : Texture2D##This texture will appear whenever the player is within range of the input detector (Note the texture must be 512x512 or less, otherwise it will be too large and may be clipped out of view)
 @export_range(0,2,1) var indicator_anchor : int##Determines were the indicator texture will be placed, 0 is top left, 1 is top center, 2 is top right
 @export_group("SFX Settings")
 @export var audio_bus : String = "Master"##The bus you want the interaction sound effect to use. Please ensure you spell the name of the bus correctly
@@ -25,6 +25,7 @@ var active_input_keybind : StringName = "interact"
 signal input_detected(interact_state)
 
 func _ready():
+	movement_disabler.position.y = 999
 	if audio_bus:
 		$InteractionSound.bus = audio_bus
 	if custom_input_keybind:
@@ -49,10 +50,9 @@ func _ready():
 
 func _unhandled_input(_event):
 	if in_range and Input.is_action_just_pressed("interact") and !disabled:
+		audio_node.play()
 		if !object_interact_state:
 			open()
-		audio_node.play()
-		input_detected.emit(object_interact_state)
 	if Input.is_action_just_pressed("escape") and object_interact_state:
 		close()
 
@@ -64,22 +64,26 @@ func _on_body_entered(_body):
 func _on_body_exited(_body):
 	in_range = false
 	indicator_sprite.visible = false
+	#if object_interact_state:
 	close()
 
 func open():
-	if object_interact_state:
+	if !object_interact_state:
 		indicator_sprite.visible = false
 		if enable_mouse_on_interact:
 			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
+			movement_disabler.position.y = 0
 		object_interact_state = true
 		debug_particles.process_material.color = Color("00ff00ff")
 		if enable_debug_mode:
 			debug_particles.emitting = true
+		input_detected.emit(object_interact_state)
 
 func close():
-	if !object_interact_state:
-		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
-		object_interact_state = false
-		debug_particles.process_material.color = Color("ff0000ff")
-		if enable_debug_mode:
-			debug_particles.emitting = true
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
+	object_interact_state = false
+	debug_particles.process_material.color = Color("ff0000ff")
+	if enable_debug_mode:
+		debug_particles.emitting = true
+	input_detected.emit(object_interact_state)
+	movement_disabler.position.y = 999

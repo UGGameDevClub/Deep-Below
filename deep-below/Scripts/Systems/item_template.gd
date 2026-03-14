@@ -7,8 +7,8 @@ extends Node3D
 func _ready():
 	mesh_outline.visible = false
 
-func _on_input_detector_input_detected(_interact_state):
-	if visible:
+func _on_input_detector_input_detected(interact_state):
+	if visible and interact_state:
 		visible = false
 		input_detector.disabled = true
 

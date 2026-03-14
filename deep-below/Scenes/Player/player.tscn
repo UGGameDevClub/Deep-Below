@@ -7,12 +7,6 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tugb3"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_tugb3"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_uvnfx"]
-height = 4.0
-radius = 0.001
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htcer"]
 transparency = 4
 vertex_color_use_as_albedo = true
@@ -29,12 +23,32 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_dd0ac"]
 material = SubResource("StandardMaterial3D_htcer")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mtuoh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tugb3"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uvnfx"]
+height = 4.0
+radius = 0.001
+
 [node name="Player" type="CharacterBody3D" unique_id=287700029]
 collision_layer = 3
 script = ExtResource("1_uvnfx")
 
 [node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1642345947]
 shape = SubResource("CapsuleShape3D_tugb3")
+
+[node name="DustParticles" parent="Hitbox" unique_id=216348937 instance=ExtResource("3_xpcdj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+draw_pass_1 = SubResource("QuadMesh_dd0ac")
+
+[node name="MovementDisabler" type="Area3D" parent="Hitbox" unique_id=1522752355]
+collision_layer = 0
+collision_mask = 8
+
+[node name="Hitbox" type="CollisionShape3D" parent="Hitbox/MovementDisabler" unique_id=1353873513]
+visible = false
+shape = SubResource("CapsuleShape3D_mtuoh")
 
 [node name="EditorMesh" type="MeshInstance3D" parent="." unique_id=2100339050]
 mesh = SubResource("CapsuleMesh_tugb3")
@@ -77,6 +91,5 @@ rotation = 0.7853982
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_a3d8c")
 
-[node name="DustParticles" parent="." unique_id=216348937 instance=ExtResource("3_xpcdj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-draw_pass_1 = SubResource("QuadMesh_dd0ac")
+[connection signal="area_entered" from="Hitbox/MovementDisabler" to="." method="_on_movement_disabler_area_entered"]
+[connection signal="area_exited" from="Hitbox/MovementDisabler" to="." method="_on_movement_disabler_area_exited"]

@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://thjyrn4r4cm5" path="res://Assets/2D/Misc/chain_texture.png" id="3_3x2js"]
 [ext_resource type="PackedScene" uid="uid://bvarymjwoypr1" path="res://Scenes/Game World/Props/StructureDecorations/spotlight.tscn" id="5_6c6wb"]
 [ext_resource type="PackedScene" uid="uid://bn4f7tbyito0t" path="res://Scenes/Player/PlayerSystems/input_detector.tscn" id="5_tjtai"]
+[ext_resource type="PackedScene" uid="uid://dmn30xm3j7hjg" path="res://Scenes/Systems/menu_panel.tscn" id="7_iy803"]
+[ext_resource type="PackedScene" uid="uid://bmdntl6d4pa0o" path="res://Scenes/Player/player.tscn" id="8_ddijr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgopd"]
 resource_name = "material_0"
@@ -458,6 +460,7 @@ skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_ijnwq")
 
 [node name="Collision" type="StaticBody3D" parent="MainMesh/Doors/Door1/Hinge/Mesh" unique_id=746273829]
+transform = Transform3D(1, 5.3731535e-16, 0, 5.3731366e-16, 1, 0, 0, 0, 1, 0, 0, 0.125)
 
 [node name="Hitbox" type="CollisionShape3D" parent="MainMesh/Doors/Door1/Hinge/Mesh/Collision" unique_id=1335918668]
 visible = false
@@ -479,6 +482,7 @@ skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_ijnwq")
 
 [node name="Collision" type="StaticBody3D" parent="MainMesh/Doors/Door2/Hinge/Mesh" unique_id=1037565180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.125)
 
 [node name="Hitbox" type="CollisionShape3D" parent="MainMesh/Doors/Door2/Hinge/Mesh/Collision" unique_id=1315186556]
 visible = false
@@ -644,6 +648,11 @@ surface_material_override/0 = ExtResource("1_ijnwq")
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -1.584, 0, 2.669)
 mesh = SubResource("TextMesh_dybxu")
 surface_material_override/0 = ExtResource("1_ijnwq")
+
+[node name="MenuPanel" parent="." unique_id=1842273436 instance=ExtResource("7_iy803")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.49, 0, 0)
+
+[node name="Player" parent="." unique_id=287700029 instance=ExtResource("8_ddijr")]
 
 [connection signal="input_detected" from="MainMesh/Switch/InputDetector" to="." method="_on_input_detector_input_detected"]
 [connection signal="animation_finished" from="Anims" to="." method="_on_anims_animation_finished"]

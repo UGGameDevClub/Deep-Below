@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://l8y7btkv6whb"]
+
+[node name="DebugMenu" type="Node2D" unique_id=712466060]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1643572838]
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(960, 540)
+color = Color(0.3019608, 0.6117647, 0.5254902, 1)

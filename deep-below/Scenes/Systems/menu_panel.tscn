@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dmn30xm3j7hjg"]
+
+[ext_resource type="Script" uid="uid://h7665vcmn4t5" path="res://Scripts/Systems/menu_panel.gd" id="1_tplip"]
+[ext_resource type="PackedScene" uid="uid://l8y7btkv6whb" path="res://Scenes/Menus/debug_menu.tscn" id="2_b5d34"]
+[ext_resource type="PackedScene" uid="uid://bn4f7tbyito0t" path="res://Scenes/Player/PlayerSystems/input_detector.tscn" id="3_jknxu"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_47siq"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jknxu"]
+size = Vector3(2, 1, 0.1630249)
+
+[node name="MenuPanel" type="Node3D" unique_id=1842273436]
+script = ExtResource("1_tplip")
+menu_scene = ExtResource("2_b5d34")
+
+[node name="Screen" type="Sprite3D" parent="." unique_id=1371807191]
+pixel_size = 0.001
+texture = SubResource("ViewportTexture_47siq")
+
+[node name="FrontIndicator" type="RayCast3D" parent="Screen" unique_id=487093399]
+target_position = Vector3(0, 0, 0.25)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=471856219]
+modulate = Color(1, 1, 1, 0)
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(1, 0.01)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1048447585]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Scaler" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1741662581]
+
+[node name="InputDetector" parent="." unique_id=1830051855 instance=ExtResource("3_jknxu")]
+indicator_anchor = 1
+audio_bus = "Master"
+enable_mouse_on_interact = true
+
+[node name="Range" type="CollisionShape3D" parent="InputDetector" unique_id=444544213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08163452)
+shape = SubResource("BoxShape3D_jknxu")
+debug_color = Color(0, 1, 0.29411766, 0.2)
+debug_fill = false
+
+[connection signal="input_detected" from="InputDetector" to="." method="_on_input_detector_input_detected"]

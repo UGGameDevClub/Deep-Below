@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://r0idd4ksgjjv" path="res://Scenes/Game World/Items/Minerals/iron.tscn" id="5_ao481"]
 [ext_resource type="PackedScene" uid="uid://d1qqt21kp1l7w" path="res://Scenes/Game World/Items/Minerals/sulphur.tscn" id="6_gb310"]
 [ext_resource type="PackedScene" uid="uid://dxaiti3wqm0d0" path="res://Scenes/Game World/Items/Minerals/lead.tscn" id="7_8v3cd"]
-[ext_resource type="PackedScene" uid="uid://dxenuytrnre85" path="res://Scenes/Game World/Structures/diving_rig.tscn" id="7_ao481"]
+[ext_resource type="PackedScene" uid="uid://dmn30xm3j7hjg" path="res://Scenes/Systems/menu_panel.tscn" id="7_ao481"]
 
 [sub_resource type="Gradient" id="Gradient_g1swy"]
 colors = PackedColorArray(0, 0, 0, 1, 0.59997064, 0.73147446, 1, 1)
@@ -136,7 +136,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6554518, 0)
 is_underwater = true
 
 [node name="Testlight" type="OmniLight3D" parent="Player" unique_id=1177837631]
-visible = false
 light_color = Color(1, 0.9137255, 0.6862745, 1)
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -176,8 +175,5 @@ mineral_scene = ExtResource("7_8v3cd")
 respawn_time = 5.0
 respawn_variance = 4.0
 
-[node name="DivingBell" parent="." unique_id=2095712509 instance=ExtResource("7_ao481")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="Lithium" parent="DivingBell" unique_id=2023164429 instance=ExtResource("4_1xi28")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4451072, 1.5866733)
+[node name="MenuPanel" parent="." unique_id=1842273436 instance=ExtResource("7_ao481")]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 1, -7)
